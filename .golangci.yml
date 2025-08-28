@@ -1,0 +1,15 @@
+---
+version: "2"
+linters:
+  default: all
+  disable:
+    - depguard
+    - exhaustruct
+    - godox
+    - ireturn
+    - varnamelen
+  settings:
+    revive:
+      rules:
+        - name: package-comments
+          disabled: true

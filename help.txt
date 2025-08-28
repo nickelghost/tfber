@@ -1,0 +1,8 @@
+tfber is a utility that allows quick adding of production-ready state storage to Terraform projects
+
+Usage: tfber <command> [command flags]
+
+Commands:
+    generate    create Terraform code and save it into a file
+    output      create Terraform code and output it into standard output
+    import      add already existing state storage as generated resources
