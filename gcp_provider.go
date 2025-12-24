@@ -1,6 +1,8 @@
 package main
 
 import (
+	"context"
+
 	"github.com/hashicorp/hcl/v2/hclwrite"
 	"github.com/zclconf/go-cty/cty"
 )
@@ -38,6 +40,6 @@ func (p *gcpProvider) CreateResourceNameSuffix(length int) string {
 	return createGenericSuffix(length)
 }
 
-func (p *gcpProvider) Import(resourceName, stateID string) error {
-	return run("terraform", "import", "google_storage_bucket."+stateID, resourceName)
+func (p *gcpProvider) Import(ctx context.Context, resourceName, stateID string) error {
+	return run(ctx, "terraform", "import", "google_storage_bucket."+stateID, resourceName)
 }

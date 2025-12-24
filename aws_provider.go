@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/hashicorp/hcl/v2/hclsyntax"
@@ -12,7 +13,7 @@ type awsProvider struct{}
 
 func (p *awsProvider) Output(resourceName, stateID string) string {
 	bucketTokens := hclwrite.Tokens{
-		{Type: hclsyntax.TokenIdent, Bytes: []byte(fmt.Sprintf("aws_s3_bucket.%s.id", stateID))},
+		{Type: hclsyntax.TokenIdent, Bytes: fmt.Appendf(nil, "aws_s3_bucket.%s.id", stateID)},
 	}
 	f := hclwrite.NewEmptyFile()
 
@@ -61,10 +62,10 @@ func (p *awsProvider) CreateResourceNameSuffix(length int) string {
 	return createGenericSuffix(length)
 }
 
-func (p *awsProvider) Import(resourceName, stateID string) error {
-	if err := run("terraform", "import", "aws_s3_bucket."+stateID, resourceName); err != nil {
+func (p *awsProvider) Import(ctx context.Context, resourceName, stateID string) error {
+	if err := run(ctx, "terraform", "import", "aws_s3_bucket."+stateID, resourceName); err != nil {
 		return err
 	}
 
-	return run("terraform", "import", "aws_dynamodb_table."+stateID, resourceName)
+	return run(ctx, "terraform", "import", "aws_dynamodb_table."+stateID, resourceName)
 }

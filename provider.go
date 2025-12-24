@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"crypto/rand"
 	"errors"
 	"math/big"
@@ -13,7 +14,7 @@ var errUnknownProvider = errors.New("unknown provider")
 type provider interface {
 	Output(resourceName, stateID string) string
 	CreateResourceNameSuffix(length int) string
-	Import(resourceName, stateID string) error
+	Import(ctx context.Context, resourceName, stateID string) error
 }
 
 func createGenericSuffix(length int) string {

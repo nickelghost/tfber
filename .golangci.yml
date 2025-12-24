@@ -5,9 +5,11 @@ linters:
   disable:
     - depguard
     - exhaustruct
-    - godox
+    - gochecknoglobals
+    - noinlineerr
     - ireturn
     - varnamelen
+    - wsl
   settings:
     revive:
       rules:
