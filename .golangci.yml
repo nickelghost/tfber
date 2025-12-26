@@ -15,3 +15,8 @@ linters:
       rules:
         - name: package-comments
           disabled: true
+formatters:
+  enable:
+    - gofmt
+    - gofumpt
+    - goimports
