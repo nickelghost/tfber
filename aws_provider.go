@@ -67,5 +67,13 @@ func (p *awsProvider) Import(ctx context.Context, resourceName, stateID string) 
 		return err
 	}
 
+	if err := run(ctx, "terraform", "import", "aws_s3_bucket_versioning."+stateID, resourceName); err != nil {
+		return err
+	}
+
+	if err := run(ctx, "terraform", "import", "aws_s3_bucket_public_access_block."+stateID, resourceName); err != nil {
+		return err
+	}
+
 	return run(ctx, "terraform", "import", "aws_dynamodb_table."+stateID, resourceName)
 }
