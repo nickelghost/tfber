@@ -2,9 +2,12 @@ package main
 
 import (
 	_ "embed"
+	"errors"
 	"fmt"
 	"os"
 )
+
+var errUnknownCommand = errors.New("unknown command")
 
 //go:embed help.txt
 var helpText string
@@ -21,7 +24,8 @@ func dispatchCmd(cmd string, args []string) error {
 		err = importCmd(args)
 	default:
 		fmt.Fprint(os.Stderr, helpText)
-		os.Exit(1)
+
+		return errUnknownCommand
 	}
 
 	return err

@@ -19,7 +19,7 @@ func main() {
 	}
 
 	if err := dispatchCmd(cmd, args); err != nil {
-		if !errors.Is(err, errFlagValidationFailed) {
+		if !errors.Is(err, errFlagValidationFailed) && !errors.Is(err, errUnknownCommand) {
 			fmt.Fprintln(os.Stderr, err)
 		}
 
