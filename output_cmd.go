@@ -6,14 +6,14 @@ import (
 )
 
 func outputCmd(args []string) error {
-	fs := flag.NewFlagSet("output", flag.ExitOnError)
+	fs := flag.NewFlagSet("output", flag.ContinueOnError)
 
 	f := flags{}
 	f.registerCommon(fs)
 	f.registerOutput(fs)
 
 	if err := fs.Parse(args); err != nil {
-		return fmt.Errorf("flag set parse: %w", err)
+		return fmt.Errorf("%w: %w", errFlagParseFailed, err)
 	}
 
 	if err := f.validateCommon(fs); err != nil {

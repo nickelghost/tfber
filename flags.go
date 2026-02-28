@@ -6,7 +6,10 @@ import (
 	"fmt"
 )
 
-var errFlagValidationFailed = errors.New("flag validation failed")
+var (
+	errFlagValidationFailed = errors.New("flag validation failed")
+	errFlagParseFailed      = errors.New("flag parse failed")
+)
 
 type flags struct {
 	// common

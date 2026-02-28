@@ -6,13 +6,13 @@ import (
 )
 
 func importCmd(args []string) error {
-	fs := flag.NewFlagSet("import", flag.ExitOnError)
+	fs := flag.NewFlagSet("import", flag.ContinueOnError)
 
 	f := flags{}
 	f.registerCommon(fs)
 
 	if err := fs.Parse(args); err != nil {
-		return fmt.Errorf("flag set parse: %w", err)
+		return fmt.Errorf("%w: %w", errFlagParseFailed, err)
 	}
 
 	if err := f.validateCommon(fs); err != nil {

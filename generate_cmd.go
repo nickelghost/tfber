@@ -6,7 +6,7 @@ import (
 )
 
 func generateCmd(args []string) error {
-	fs := flag.NewFlagSet("generate", flag.ExitOnError)
+	fs := flag.NewFlagSet("generate", flag.ContinueOnError)
 
 	f := flags{}
 	f.registerCommon(fs)
@@ -15,7 +15,7 @@ func generateCmd(args []string) error {
 	fileName := fs.String("file-name", "state.tf", "name the generated Terraform file should have")
 
 	if err := fs.Parse(args); err != nil {
-		return fmt.Errorf("flag set parse: %w", err)
+		return fmt.Errorf("%w: %w", errFlagParseFailed, err)
 	}
 
 	if err := f.validateCommon(fs); err != nil {
