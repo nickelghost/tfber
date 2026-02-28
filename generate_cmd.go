@@ -22,6 +22,10 @@ func generateCmd(args []string) error {
 		return err
 	}
 
+	if err := f.validateGCP(fs); err != nil {
+		return err
+	}
+
 	p, err := initProvider(f)
 	if err != nil {
 		return err

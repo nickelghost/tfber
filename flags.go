@@ -63,6 +63,16 @@ func (f *flags) validateCommon(fs *flag.FlagSet) error {
 	return nil
 }
 
+func (f *flags) validateGCP(fs *flag.FlagSet) error {
+	if f.provider == "gcp" && f.gcpBucketLocation == "" {
+		fs.Usage()
+
+		return fmt.Errorf("%w: missing gcp-bucket-location", errFlagValidationFailed)
+	}
+
+	return nil
+}
+
 func (f *flags) validateImport(fs *flag.FlagSet) error {
 	if f.stateID == "" {
 		fs.Usage()
