@@ -17,8 +17,10 @@ func generate(
 	force bool,
 ) error {
 	if !force {
-		if _, err := os.Stat(fileName); !errors.Is(err, os.ErrNotExist) {
+		if _, err := os.Stat(fileName); err == nil {
 			return fmt.Errorf("%s: %w", fileName, errFileExists)
+		} else if !errors.Is(err, os.ErrNotExist) {
+			return fmt.Errorf("stat file %s: %w", fileName, err)
 		}
 	}
 
