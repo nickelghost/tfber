@@ -35,7 +35,7 @@ func (f *flags) registerOutput(fs *flag.FlagSet) {
 		&f.resourceNameSuffix,
 		"resource-name-suffix",
 		true,
-		"name of the resource should have a random suffix",
+		"append a random suffix to the resource name (enabled by default)",
 	)
 	fs.IntVar(
 		&f.resourceNameSuffixLength,
