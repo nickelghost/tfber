@@ -1,8 +1,30 @@
 tfber is a utility that allows quick adding of production-ready state storage to Terraform projects
 
-Usage: tfber <command> [command flags]
+Usage: tfber <command> [flags]
 
 Commands:
     generate    create Terraform code and save it into a file
     output      create Terraform code and output it into standard output
     import      add already existing state storage as generated resources
+
+Common flags:
+    -provider string            name of the state provider: aws, gcp (required)
+    -resource-name string       name of the resources inside provider (required)
+    -state-id string            ID of the resources inside of Terraform path (required on import)
+
+Generate / Output flags:
+    -resource-name-suffix       append a random suffix to the resource name (default: true)
+    -resource-name-suffix-length int  length of the random suffix (default: 6)
+
+Generate-only flags:
+    -file-name string           name of the generated file (default: state.tf)
+    -force                      overwrite the file if it already exists
+
+GCP flags (generate / output):
+    -gcp-bucket-location string where the GCP bucket should live (required for gcp)
+    -gcp-project string         what project the resources should be created in
+
+Examples:
+    tfber generate -provider aws -resource-name my-tf-state
+    tfber output -provider gcp -resource-name my-tf-state -gcp-bucket-location US
+    tfber import -provider aws -resource-name my-tf-state -state-id my_tf_state
